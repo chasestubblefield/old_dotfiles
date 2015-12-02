@@ -1,0 +1,43 @@
+config  defaultToCurrentScreen  true
+config  nudgePercentOf          screenSize
+config  resizePercentOf         screenSize
+
+# Resize (ctrl+option,shift+ctrl+option)
+bind right:ctrl;alt       resize +10% +0
+bind left:ctrl;alt        resize -10% +0
+bind up:ctrl;alt          resize +0   -10%
+bind down:ctrl;alt        resize +0   +10%
+bind right:shift;ctrl;alt  resize -10% +0 bottom-right
+bind left:shift;ctrl;alt   resize +10% +0 bottom-right
+bind up:shift;ctrl;alt     resize +0   +10% bottom-right
+bind down:shift;ctrl;alt   resize +0   -10% bottom-right
+
+# Push (cmd+ctrl)
+bind right:ctrl;cmd  push right bar-resize:screenSizeX/2
+bind left:ctrl;cmd   push left  bar-resize:screenSizeX/2
+bind up:ctrl;cmd     push up    bar-resize:screenSizeY/2
+bind down:ctrl;cmd   push down  bar-resize:screenSizeY/2
+
+# Nudge (ctrl)
+bind  right:ctrl  nudge  +10%  +0
+bind  left:ctrl   nudge  -10%  +0
+bind  up:ctrl     nudge  +0    -10%
+bind  down:ctrl   nudge  +0    +10%
+
+# Throw (cmd+ctrl+option)
+bind right:ctrl;alt;cmd throw right resize
+bind left:ctrl;alt;cmd  throw left  resize
+bind up:ctrl;alt;cmd    throw up    resize
+bind down:ctrl;alt;cmd  throw down  resize
+
+# Focus (cmd+option)
+bind  left:cmd;alt   focus  left
+bind  right:cmd;alt  focus  right
+bind  up:cmd;alt     focus  behind
+bind  down:cmd;alt   focus  behind
+
+# Window Hints
+bind esc:cmd hint
+
+# iTerm
+bind `:ctrl;alt;cmd focus 'iTerm'

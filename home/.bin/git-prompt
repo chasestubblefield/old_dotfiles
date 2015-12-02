@@ -1,0 +1,82 @@
+#!/usr/bin/env perl
+open(STATUS, 'git status -bs 2>/dev/null |') || exit;
+
+# process branch status
+
+$branch_line = <STATUS>;
+exit 1 if (!$branch_line); # exit if no status output
+
+$branch = "";
+chomp($branch_line);
+if ($branch_line =~ /^## HEAD \(no branch\)$/) {
+  $branch = `git rev-parse --short HEAD`;
+  chomp($branch);
+} elsif ($branch_line =~ /^## (\S+)\.\.\./ || $branch_line =~ /^## (\S+)/) {
+  $branch = $1;
+}
+
+$ahead = 0;
+$behind = 0;
+if ($branch_line =~ /\[(.*)\]$/) {
+  $text = $1;
+  $ahead = 1 if ($text =~ /ahead/);
+  $behind = 1 if ($text =~ /behind/);
+}
+
+# process file statuses
+
+$unmerged = 0;
+$staged = 0;
+$modified = 0;
+$untracked = 0;
+while ($line = <STATUS>) {
+  if ($line =~ /^\?\?/) {
+    $untracked = 1;
+  }
+  elsif ($line =~ /^[ADU][ADU]/) {
+    $unmerged = 1;
+  }
+  else {
+    $modified = 1 if ($line =~ /^[ MADRC][MADRC]/);
+    $staged = 1 if ($line =~ /^[MADRC]/);
+  }
+}
+
+$dirty = $behind || $ahead || $unmerged || $staged || $modified || $untracked;
+
+# output
+use utf8;
+binmode(STDOUT, ":utf8");
+
+use Term::ANSIColor qw(:constants);
+
+print '%{';
+if ($dirty) {
+  print BLUE;
+} else {
+  print GREEN;
+}
+print '%}', '(', $branch;
+if ($dirty) {
+  print ' ';
+  if ($behind && $ahead) {
+    print '%{', MAGENTA, '%}', '⇿';
+  }
+  elsif ($behind) {
+    print '%{', MAGENTA, '%}', '⇽';
+  }
+  elsif ($ahead) {
+    print '%{', MAGENTA, '%}', '⇾';
+  }
+  print '%{', YELLOW, '%}', '♦' if $unmerged;
+  print '%{', GREEN, '%}', '+' if $staged;
+  print '%{', RED, '%}', '*' if $modified;
+  print '%{', YELLOW, '%}', '?' if $untracked;
+}
+print '%{';
+if ($dirty) {
+  print BLUE;
+} else {
+  print GREEN;
+}
+print '%}', ')', '%{', RESET, '%}';

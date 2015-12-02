@@ -1,0 +1,35 @@
+[alias]
+  d = diff
+  dc = diff --cached
+  co = checkout
+  ci = commit
+  adp = add -p
+  cop = checkout -p
+  amend = commit --amend -C HEAD
+  rc = rebase --continue
+  l = log --oneline --decorate --graph
+  ll = log --oneline --decorate --graph origin/master HEAD
+  wip = !git add -A && git commit -nm wip
+  gist = !git add -A && git commit -m '' --allow-empty-message && git push
+  cut = "!f() { git checkout --no-track -b $1 $2 && git push -u origin $1; }; f"
+  bisect-run = "!f() { git bisect start HEAD $1 && shift && git bisect run "$@" && git bisect reset; }; f"
+  editdiff = !git diff --name-only | xargs subl
+  ego = shortlog -sn
+  com = !git fetch && git checkout origin/master
+  rom = !git fetch && git rebase origin/master
+[color]
+  ui = true
+[core]
+  excludesfile = ~/.gitignore
+  pager = less -FRSX
+	editor = vim
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+[pull]
+  rebase = true
+[push]
+  default = current
+[rebase]
+  autosquash = true
+[user]
+  name = Chase Stubblefield
+  email = chasestubblefield@gmail.com
