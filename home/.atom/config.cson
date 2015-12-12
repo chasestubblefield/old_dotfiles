@@ -16,3 +16,6 @@
   "tree-view":
     hideIgnoredNames: true
     hideVcsIgnoredFiles: true
+".go.source":
+  editor:
+    tabLength: 4
