@@ -1,0 +1,18 @@
+"*":
+  "exception-reporting":
+    userId: "9618368b-9b05-0927-c368-6934a21ae01d"
+  welcome:
+    showOnStartup: false
+  core:
+    projectHome: "/Users/chase/projects"
+    ignoredNames: [
+      ".git"
+      ".DS_Store"
+      "__pycache__"
+      "*.pyc"
+    ]
+  editor:
+    showInvisibles: true
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
