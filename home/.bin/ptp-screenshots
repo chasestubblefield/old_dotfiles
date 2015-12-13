@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ffmpeg -i "$1" -vf fps=1/300 -vframes 3 screenshot_%d.png
