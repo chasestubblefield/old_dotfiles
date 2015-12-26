@@ -1,0 +1,6 @@
+#!/bin/sh
+
+INPUT="$1"
+START=$2
+
+ffmpeg -ss $START -i "$INPUT" -vf crop=704:480,scale=640:480,crop=600:450,scale=640:480,fps=30,drawtext="timecode='0\:0\:0\;0':r=30:x=(w-tw)/2:y=h-(2*lh):font=Menlo:fontsize=24:fontcolor=white:borderw=1" -aspect 4:3 -pix_fmt +yuv420p -c:v libx264 -profile:v high -crf 15 -preset veryslow -tune film -bf 2 -flags +cgop -g 15 -coder ac -movflags +faststart -c:a libfdk_aac -b:a 256k -t 30 output.mp4
