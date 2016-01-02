@@ -11,8 +11,12 @@
       "__pycache__"
       "*.pyc"
     ]
+    disabledPackages: [
+      "wrap-guide"
+    ]
   editor:
     showInvisibles: true
+    invisibles: {}
   "tree-view":
     hideIgnoredNames: true
     hideVcsIgnoredFiles: true
