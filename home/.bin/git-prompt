@@ -50,33 +50,31 @@ binmode(STDOUT, ":utf8");
 
 use Term::ANSIColor qw(:constants);
 
-print '%{';
 if ($dirty) {
   print BLUE;
 } else {
   print GREEN;
 }
-print '%}', '(', $branch;
+print '(', $branch;
 if ($dirty) {
   print ' ';
   if ($behind && $ahead) {
-    print '%{', MAGENTA, '%}', '⇿';
+    print MAGENTA, '⇿';
   }
   elsif ($behind) {
-    print '%{', MAGENTA, '%}', '⇽';
+    print MAGENTA, '⇽';
   }
   elsif ($ahead) {
-    print '%{', MAGENTA, '%}', '⇾';
+    print MAGENTA, '⇾';
   }
-  print '%{', YELLOW, '%}', '♦' if $unmerged;
-  print '%{', GREEN, '%}', '+' if $staged;
-  print '%{', RED, '%}', '*' if $modified;
-  print '%{', YELLOW, '%}', '?' if $untracked;
+  print YELLOW, '♦' if $unmerged;
+  print GREEN, '+' if $staged;
+  print RED, '*' if $modified;
+  print YELLOW, '?' if $untracked;
 }
-print '%{';
 if ($dirty) {
   print BLUE;
 } else {
   print GREEN;
 }
-print '%}', ')', '%{', RESET, '%}';
+print ')', RESET;
